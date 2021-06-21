@@ -12,11 +12,9 @@ def main():
     mode = input('mode: ')
 
     if mode == '1':
-        n = input('使う素数の桁数: ')
-        n, e, lcm = utils.make_public_key(n)
-        print(F'n: {n}\ne: {e}\nlcm: {lcm}')
-
-        #print(F'{n}桁の適当な素数は\n{prime1}\nと\n{prime2}')
+        # n = input('使う素数の桁数: ')
+        n, e, lcm, d = utils.make_public_key()
+        print(F'n: {n}\ne: {e}\nlcm: {lcm}\nd: {d}')
 
     if mode == '2':
         print('n,eを入力してください')
