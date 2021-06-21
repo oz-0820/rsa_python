@@ -4,23 +4,6 @@ import random
 import math
 
 
-def make_prime(n):  # 重複しないn桁の素数を二つ返す
-    n = int(n)
-    prime1 = sympy.randprime(pow(10, (n-1)), pow(10, n))
-    prime2 = sympy.randprime(pow(10, (n-1)), pow(10, n))
-
-    if prime1 == prime2:
-        make_prime(n)
-
-    print(F'prime1: {prime1}\nprime2: {prime2}')
-
-    return prime1, prime2
-
-
-def int_len(num):
-    return len(str(num))
-
-
 def make_public_key():  # return n, e, lcm, d
     key_len = int(input('鍵の長さ(bit): '))
     # e = input('eの値を選択する\na: 3，\nb: 5,\nc: 17,\nd: 257,\ne: 65537,(推奨)\nf: 131073,\ng: 262145,\n>> ')
@@ -33,21 +16,6 @@ def make_public_key():  # return n, e, lcm, d
     n = prime1 * prime2
     lcm = sympy.lcm(prime1-1, prime2-1)
     d, a, b = sympy.gcdex(e, lcm)
-
-    """
-    prime1, prime2 = make_prime(n)
-    n = prime1 * prime2
-    lcm = sympy.lcm(prime1-1, prime2-1)
-    e_len = (len(str(max(prime1, prime2))) + len(str(lcm))) // 2
-    e = random.randint(pow(10, e_len-1), pow(10, e_len))
-    a = 0
-    while not a == 1:
-        a = sympy.gcd(e, lcm)
-        e += 1
-        #print(F'e: {e}')
-
-        #e = 65537
-    """
 
     return n, e, lcm, d
 
@@ -73,12 +41,21 @@ def e_input():
         return e_input()
 
 
-def char_text_to_int_list(char_list):
+def char_text_list_to_int_text_list(char_list):  # charなリストを突っ込むとintなリストに変換して返してくれる
     int_list = []
     for i in range(len(char_list)):
         int_list.append(ord(char_list[i])-31)
     print(F'int_list: {int_list}')
     return int_list
+
+
+def int_text_list_to_int(data, count):  # int_listなデータと文字数を突っ込むと一つの数になって帰ってくる
+    data.reverse()
+    int_data = 0
+    for i in range(len(data)):
+        int_data += data[i] * pow(count, i)
+
+    return int_data
 
 
 def int_list_to_char_text(int_list):
@@ -140,11 +117,77 @@ def exponentiation(plain, e_bin_list, n):  # n:(mod n)
     return expon
 
 
-"""
+def dec_to_bin_list(dec, mod, plain):
+    bin_list = list(map(int, list(bin(dec)[2:])))
+    # [1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1]
+    bin_list.reverse()
+    # [[0, 2398], [1, 8900]]
+    # return_list = []
+    # ['1', '1', '0', '0', '1', '0', '1', '1', '0', '0', '1', '1']
 
-char_text   'abcdefg'
-int_text    '123456789'
-char_list   ['a', 'b', 'c', 'd', 'r', 'f', 'g']
-int_list    ['1', '2', '3', '4', '5', '6', '7']
+    for i in range(len(bin_list)):
+        if bin_list[i] == 1:
+            print(F'P^2^{i} = {pow(plain, pow(2, i))%89711}')
 
-"""
+
+def encrypt(plain, e, mod):
+    e_bin_list = list(map(int, list(bin(e)[2:])))
+    e_bin_list.reverse()
+    cryptogram = 1
+    for i in range(len(e_bin_list)):
+        if e_bin_list[i] == 1:
+            data = pow(plain, pow(2, i)) % mod
+            print(F'P^2^{i} = {data}')
+            cryptogram *= data
+            cryptogram = cryptogram % mod
+            print(F'cryptogram:{cryptogram}')
+
+            # [[i, data], [i, data]]
+
+
+def make_bin_expansion_list(data, bin_list, mod):  # 二進展開の一覧表を作る
+    bin_expansion_list = [[0, data]]
+    for i in range(1, len(bin_list)):
+        data = i, pow(bin_expansion_list[i-1][1], 2) % mod
+        bin_expansion_list.append(data)
+    return bin_expansion_list
+
+
+def make_bin_list(data):  # 十進をintな二進にして一桁ずつlistに格納
+    bin_list = list(map(int, list(bin(data)[2:])))
+    return bin_list
+
+
+def multiply(bin_list, bin_expansion_list, mod):  # bin_listとbin_expansion_listから最後の研鑽する
+    bin_list_re = list(reversed(bin_list))
+    data = 1
+    for i in range(len(bin_list_re)):
+        if bin_list_re[i] == 1:
+            # print(i)
+            data = data * bin_expansion_list[i][1] % mod
+    return data
+
+
+def bin_expansion(data, e, n):  # plain ^ e (mod n)
+    # 入力： p^e (mod n), plain, e, n
+    # 出力:
+    e_bin_list = list(map(int, list(bin(e)[2:])))
+    bin_expansion_list = make_bin_expansion_list(data, e_bin_list, n)
+    output = multiply(e_bin_list, bin_expansion_list, n)
+    return output
+
+
+def int_to_char_list(data, n):
+    # cryptogram =
+    count = 0
+    while pow(n, count) < data:
+        count += 1
+    count -= 1
+
+    for i in count:
+        a = 1
+        #while a < data:
+
+
+    return i
+
