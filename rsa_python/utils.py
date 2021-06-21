@@ -4,23 +4,6 @@ import random
 import math
 
 
-def make_prime(n):  # 重複しないn桁の素数を二つ返す
-    n = int(n)
-    prime1 = sympy.randprime(pow(10, (n-1)), pow(10, n))
-    prime2 = sympy.randprime(pow(10, (n-1)), pow(10, n))
-
-    if prime1 == prime2:
-        make_prime(n)
-
-    print(F'prime1: {prime1}\nprime2: {prime2}')
-
-    return prime1, prime2
-
-
-def int_len(num):
-    return len(str(num))
-
-
 def make_public_key():  # return n, e, lcm, d
     key_len = int(input('鍵の長さ(bit): '))
     # e = input('eの値を選択する\na: 3，\nb: 5,\nc: 17,\nd: 257,\ne: 65537,(推奨)\nf: 131073,\ng: 262145,\n>> ')
@@ -33,21 +16,6 @@ def make_public_key():  # return n, e, lcm, d
     n = prime1 * prime2
     lcm = sympy.lcm(prime1-1, prime2-1)
     d, a, b = sympy.gcdex(e, lcm)
-
-    """
-    prime1, prime2 = make_prime(n)
-    n = prime1 * prime2
-    lcm = sympy.lcm(prime1-1, prime2-1)
-    e_len = (len(str(max(prime1, prime2))) + len(str(lcm))) // 2
-    e = random.randint(pow(10, e_len-1), pow(10, e_len))
-    a = 0
-    while not a == 1:
-        a = sympy.gcd(e, lcm)
-        e += 1
-        #print(F'e: {e}')
-
-        #e = 65537
-    """
 
     return n, e, lcm, d
 
@@ -140,7 +108,39 @@ def exponentiation(plain, e_bin_list, n):  # n:(mod n)
     return expon
 
 
-"""
+def dec_to_bin_list(dec, mod, plain):
+    bin_list = list(map(int, list(bin(dec)[2:])))
+    # [1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1]
+    bin_list.reverse()
+    # [[0, 2398], [1, 8900]]
+    # return_list = []
+    # ['1', '1', '0', '0', '1', '0', '1', '1', '0', '0', '1', '1']
+
+    for i in range(len(bin_list)):
+        if bin_list[i] == 1:
+            print(F'P^2^{i} = {pow(plain, pow(2, i))%89711}')
+
+
+def encrypt(plain, e, mod):
+    e_bin_list = list(map(int, list(bin(e)[2:])))
+    e_bin_list.reverse()
+    cryptogram = 1
+    for i in range(len(e_bin_list)):
+        if e_bin_list[i] == 1:
+            data = pow(plain, pow(2, i)) % mod
+            print(F'P^2^{i} = {data}')
+            cryptogram *= data
+            cryptogram = cryptogram % mod
+            print(F'cryptogram:{cryptogram}')
+
+
+
+def int_to_char(data, word_count):
+    # cryptogram =
+    i = 0
+    while pow(word_count, i) < data:
+        i += 1
+
 
 char_text   'abcdefg'
 int_text    '123456789'
