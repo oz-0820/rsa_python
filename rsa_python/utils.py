@@ -163,18 +163,18 @@ def multiply(bin_list, bin_expansion_list, mod):  # bin_listとbin_expansion_lis
     data = 1
     for i in range(len(bin_list_re)):
         if bin_list_re[i] == 1:
-            print(i)
+            # print(i)
             data = data * bin_expansion_list[i][1] % mod
     return data
 
 
-def bin_expansion(plain, e, n):  # plain ^ e (mod n)
+def bin_expansion(data, e, n):  # plain ^ e (mod n)
     # 入力： p^e (mod n), plain, e, n
     # 出力:
     e_bin_list = list(map(int, list(bin(e)[2:])))
-    bin_expansion_list = make_bin_expansion_list(plain, e_bin_list, n)
-    data = multiply(e_bin_list, bin_expansion_list, n)
-    return data
+    bin_expansion_list = make_bin_expansion_list(data, e_bin_list, n)
+    output = multiply(e_bin_list, bin_expansion_list, n)
+    return output
 
 
 def int_to_char_list(data, n):
