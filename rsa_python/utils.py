@@ -21,7 +21,20 @@ def int_len(num):
     return len(str(num))
 
 
-def make_public_key(n):  # return n, e
+def make_public_key():  # return n, e, lcm, d
+    key_len = int(input('鍵の長さ(bit): '))
+    # e = input('eの値を選択する\na: 3，\nb: 5,\nc: 17,\nd: 257,\ne: 65537,(推奨)\nf: 131073,\ng: 262145,\n>> ')
+    e = e_input()
+
+    p1_len = (key_len // 2) + 1
+    p2_len = key_len - p1_len
+    prime1 = sympy.randprime(pow(2, p1_len-1), pow(2, p1_len)-1)
+    prime2 = sympy.randprime(pow(2, p2_len-1), pow(2, p2_len)-1)
+    n = prime1 * prime2
+    lcm = sympy.lcm(prime1-1, prime2-1)
+    d, a, b = sympy.gcdex(e, lcm)
+
+    """
     prime1, prime2 = make_prime(n)
     n = prime1 * prime2
     lcm = sympy.lcm(prime1-1, prime2-1)
@@ -33,7 +46,31 @@ def make_public_key(n):  # return n, e
         e += 1
         #print(F'e: {e}')
 
-    return n, e, lcm
+        #e = 65537
+    """
+
+    return n, e, lcm, d
+
+
+def e_input():
+    e = input('eの値を選択する\na: 3，\nb: 5,\nc: 17,\nd: 257,\ne: 65537,(推奨)\nf: 131073,\ng: 262145,\n>> ')
+    if e == 'a':
+        return 3
+    elif e == 'b':
+        return 5
+    elif e == 'c':
+        return 17
+    elif e == 'd':
+        return 257
+    elif e == 'e':
+        return 65537
+    elif e == 'f':
+        return 131073
+    elif e == 'g':
+        return 262145
+    else:
+        print('入力エラー')
+        return e_input()
 
 
 def char_text_to_int_list(char_list):
