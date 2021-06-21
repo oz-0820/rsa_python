@@ -17,6 +17,27 @@ def main():
         print(F'n: {n}\ne: {e}\nlcm: {lcm}\nd: {d}')
 
     if mode == '2':
+        # print('n,eを入力してください')
+        # n = int(input('n: '))
+        # e = int(input('e: '))
+        n = 89711
+        e = 65537
+        plain = 2398
+        print(F'n: {n}\ne: {e}\np: {plain}')
+
+        # plain_char_list = list(input(F'暗号化します。\nASCIIコードの0x20から0x7Eまでの入力に対応しています。(計95文字)\ntext: '))
+        # plain_int_list = utils.char_text_list_to_int_text_list(plain_char_list)
+        # print(utils.int_text_list_to_int(plain_int_list, 26))
+
+        e_bin_list = utils.make_bin_list(e)
+        print(F'n_bin_list: {e_bin_list}')
+        print(utils.make_bin_expansion_list(plain, e_bin_list, n))
+
+        print(utils.bin_expansion(plain, e, n))  # plain ^ e (mod n)
+
+
+        """
+        
         print('n,eを入力してください')
         #n = int(input('n: '))
         #e = int(input('e: '))
@@ -46,7 +67,7 @@ def main():
         #exponentiation(a, c, n):  # pow(a, pow(2, c), mod(n))
 
 
-        """
+        
         int_crypt = utils.exponentiation(plain, 2, i, n)  # pow(a, pow(b, c), mod(n))
         print(F'p^2^{i} = {int_crypt}')
         #int_crypt = int_crypt * numpy.mod((plain, pow(2, i)), n)
@@ -60,7 +81,7 @@ def main():
             int_crypt = pow(int_crypt, 2) % n
             #print(F'i: {i}, int_crypt: {int_crypt}')
         #int_crypt = pow(plain, e) % n
-        """
+        
         print(F'crypt: {int_crypt}')
 
         crypt_int_list = utils.base_to_n(int_crypt, 95)
@@ -69,8 +90,10 @@ def main():
         crypt = utils.int_list_to_char_text(crypt_int_list)
         print(F'out_char: {crypt}')
 
-    if mode == '3':
-        crypt = input('複合化します。\ntext: ')
+        """
+
+        if mode == '3':
+            crypt = input('複合化します。\ntext: ')
 
 
 
