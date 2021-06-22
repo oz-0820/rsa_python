@@ -5,10 +5,6 @@ import math
 
 
 def make_keys(key_len, e):  # return n, e, lcm, d
-    # key_len = int(input('鍵の長さ(bit): '))
-    # e = input('eの値を選択する\na: 3，\nb: 5,\nc: 17,\nd: 257,\ne: 65537,(推奨)\nf: 131073,\ng: 262145,\n>> ')
-    # e = e_input()
-
     p1_len = (key_len // 2) + 1
     p2_len = key_len - p1_len
     prime1 = sympy.randprime(pow(2, p1_len-1), pow(2, p1_len)-1)
@@ -21,7 +17,9 @@ def make_keys(key_len, e):  # return n, e, lcm, d
     n = prime1 * prime2
     lcm = sympy.lcm(prime1-1, prime2-1)
     d, a, b = sympy.gcdex(e, lcm)
-    d = (d + n) % n
+    
+    if d < 0:
+        d = d % lcm
 
     return n, e, lcm, d
 
@@ -47,11 +45,19 @@ def e_input():
         return e_input()
 
 
+def char_to_int(data, m):  # 文字列と文字の種類数を突っ込むと一つの数として返す
+    char_list = list(data)
+    int_list = []
+    for i in range(len(char_list)):
+        int_list.append(ord(char_list[i])-31)
+    # int_list = char_text_list_to_int_text_list(char_list)
+    return int_text_list_to_int(int_list, m)
+
+
 def char_text_list_to_int_text_list(char_list):  # charなリストを突っ込むとintなリストに変換して返してくれる
     int_list = []
     for i in range(len(char_list)):
         int_list.append(ord(char_list[i])-31)
-    print(F'int_list: {int_list}')
     return int_list
 
 
@@ -60,8 +66,12 @@ def int_text_list_to_int(data, count):  # int_listなデータと文字数を突
     int_data = 0
     for i in range(len(data)):
         int_data += data[i] * pow(count, i)
-
     return int_data
+
+
+# def int_to_char(data, m):
+
+
 
 
 def int_list_to_char_text(int_list):
@@ -70,7 +80,6 @@ def int_list_to_char_text(int_list):
         #print(int_list[i])
         #print(F'type: {type(int_list[i])}')
         char_text += chr(int_list[i] + 31)
-
     return char_text
 
 
