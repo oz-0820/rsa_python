@@ -4,18 +4,24 @@ import random
 import math
 
 
-def make_public_key():  # return n, e, lcm, d
-    key_len = int(input('鍵の長さ(bit): '))
+def make_keys(key_len, e):  # return n, e, lcm, d
+    # key_len = int(input('鍵の長さ(bit): '))
     # e = input('eの値を選択する\na: 3，\nb: 5,\nc: 17,\nd: 257,\ne: 65537,(推奨)\nf: 131073,\ng: 262145,\n>> ')
-    e = e_input()
+    # e = e_input()
 
     p1_len = (key_len // 2) + 1
     p2_len = key_len - p1_len
     prime1 = sympy.randprime(pow(2, p1_len-1), pow(2, p1_len)-1)
     prime2 = sympy.randprime(pow(2, p2_len-1), pow(2, p2_len)-1)
+
+    if prime1 == prime2:
+        while prime1 == prime2:
+            prime2 = sympy.randprime(pow(2, p2_len - 1), pow(2, p2_len) - 1)
+
     n = prime1 * prime2
     lcm = sympy.lcm(prime1-1, prime2-1)
     d, a, b = sympy.gcdex(e, lcm)
+    d = (d + n) % n
 
     return n, e, lcm, d
 
@@ -186,8 +192,7 @@ def int_to_char_list(data, n):
 
     for i in count:
         a = 1
-        #while a < data:
-
+        # while a < data:
 
     return i
 

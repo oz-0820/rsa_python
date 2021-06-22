@@ -12,9 +12,21 @@ def main():
     mode = input('mode: ')
 
     if mode == '1':
+        key_len = int(input('鍵の長さ(bit): '))
+        e = utils.e_input()
         # n = input('使う素数の桁数: ')
-        n, e, lcm, d = utils.make_public_key()
+        n, e, lcm, d = utils.make_keys(key_len, e)
         print(F'n: {n}\ne: {e}\nlcm: {lcm}\nd: {d}')
+        """
+        file = open('keys.txt', 'w')
+        for i in range(50):
+            n, e, lcm, d = utils.make_keys(512, 65537)
+            data = [n, e, lcm, d]
+            print(F'n: {n}\ne: {e}\nlcm: {lcm}\nd: {d}')
+
+            file.write(str(data) + "\n")
+        file.close()
+        """
 
     if mode == '2':
         print('n,eを入力してください')
