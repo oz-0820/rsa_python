@@ -28,6 +28,7 @@ def main():
 def mode1():
     key_len = int(input('鍵の長さ(bit): '))
     e = utils.e_input()
+
     n, e, lcm, d = utils.make_keys(key_len, e)
     print(F'n: {n}\ne: {e}\nd: {d}')
     return n, e, d
