@@ -94,7 +94,7 @@ def multiply(bin_list, bin_expansion_list, mod):  # bin_listとbin_expansion_lis
     return data
 
 
-def bin_expansion(data, e, n):  # plain ^ e (mod n)
+def bin_expansion(data, e, n):  # data ^ e (mod n)
     # 入力： p^e (mod n), plain, e, n
     # 出力:
     e_bin_list = list(map(int, list(bin(e)[2:])))
