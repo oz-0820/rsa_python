@@ -17,9 +17,7 @@ def make_keys(key_len, e):  # return n, e, lcm, d
     n = prime1 * prime2
     lcm = sympy.lcm(prime1-1, prime2-1)
     d, a, b = sympy.gcdex(e, lcm)
-    
-    if d < 0:
-        d = d % lcm
+    d = d % lcm
 
     return n, e, lcm, d
 

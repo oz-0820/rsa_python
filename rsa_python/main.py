@@ -25,25 +25,28 @@ def main():
         # plain = int(input('p: '))
 
         plain_char = input(F'暗号化します。\nASCIIコードの0x20から0x7Eまでの入力に対応しています。(計95文字)\nつまりは半角英数と記号\ntext: ')
-        plain = utils.char_to_int(plain_char, 95)
+        plain = utils.char_to_int(plain_char, 94)
 
         print(F'plain_int: {plain}')
 
         crypt = utils.bin_expansion(plain, e, n)  # plain ^ e (mod n)
+        # 実はpowにmodと二進展開の機能があるとか知りたくなかった
+        # crypt = pow(plain, e, n)
 
         print(F'crypt: {crypt}')
 
     if mode == '3':
         crypt_char_list = list(input('複合化します。\ntext: '))
         crypt_int_list = utils.char_text_list_to_int_text_list(crypt_char_list)
-        crypt = utils.int_text_list_to_int(crypt_int_list, 95)
+        crypt = utils.int_text_list_to_int(crypt_int_list, 94)
         # crypt = input('複合化します。\ntext: ')
         #  crypt = int(input('crypt: '))
         n = int(input('n: '))
         d = int(input('d: '))
 
         plain = utils.bin_expansion(crypt, d, n)
-
+        # 実はpowにmodと二進展開の機能があるとか知りたくなかった
+        # plain = pow(crypt, d, n)
         print(F'plain: {plain}')
 
 
