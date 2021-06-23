@@ -26,7 +26,7 @@ def main():
 
 
 def mode1():
-    key_len = int(input('鍵の長さ(bit): '))
+    key_len = int(input('鍵の長さ[bit]\n(2048`より大きいと生成がクソ重い)\n>> '))
     e = utils.e_input()
     n, e, lcm, d = utils.make_keys(key_len, e)
     print(F'n: {n}\ne: {e}\nd: {d}')
