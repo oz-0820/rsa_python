@@ -44,7 +44,7 @@ def char_to_int(data):  # 文字列を突っ込むと数列を返す
     char_list = list(data)
     int_list = []
     for i in range(len(char_list)):
-        int_list.append(ord(char_list[i])-31)
+        int_list.append(ord(char_list[i])-32)
     int_list.reverse()
     int_data = 0
     for i in range(len(int_list)):
@@ -73,7 +73,7 @@ def int_to_char(data):  # 数列を突っ込むと文字列を返す
 
     char_list = []
     for i in range(len(int_list)):
-        char_list.append(chr(int_list[i] + 31))
+        char_list.append(chr(int_list[i] + 32))
     char = ''.join(char_list)
     return char
 
