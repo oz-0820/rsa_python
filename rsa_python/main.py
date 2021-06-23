@@ -49,6 +49,7 @@ def mode2(n, e):
     # 実はpowにmodと二進展開の機能があるとか知りたくなかった
     # utils.bin_expansion() == pow()
     # int_crypt = pow(int_plain, e, n)
+
     char_crypt = utils.int_to_char(int_crypt)
     print(F'crypt: {char_crypt}')
     return char_crypt

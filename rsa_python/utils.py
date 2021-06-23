@@ -49,7 +49,6 @@ def char_to_int(data):  # 文字列を突っ込むと数列を返す
     int_data = 0
     for i in range(len(int_list)):
         int_data += int_list[i] * pow(95, i)
-
     return int_data
 
 
@@ -59,6 +58,7 @@ def int_to_char(data):  # 数列を突っ込むと文字列を返す
         if data < pow(95, i+1):
             break
         i += 1
+
     int_list = []
     while i >= 0:
         int_text = 0
@@ -70,6 +70,7 @@ def int_to_char(data):  # 数列を突っ込むと文字列を返す
                 int_text += 95
             int_text += 1
         i -= 1
+
     char_list = []
     for i in range(len(int_list)):
         char_list.append(chr(int_list[i] + 31))
@@ -85,7 +86,7 @@ def make_bin_expansion_list(data, bin_list, mod):  # 二進展開の一覧表を
     return bin_expansion_list
 
 
-def multiply(bin_list, bin_expansion_list, mod):  # bin_listとbin_expansion_listから最後の研鑽する
+def multiply(bin_list, bin_expansion_list, mod):  # bin_listとbin_expansion_listから結果を計算する
     bin_list_re = list(reversed(bin_list))
     data = 1
     for i in range(len(bin_list_re)):
@@ -95,9 +96,7 @@ def multiply(bin_list, bin_expansion_list, mod):  # bin_listとbin_expansion_lis
 
 
 def bin_expansion(data, e, n):  # data ^ e (mod n)
-    # 入力： p^e (mod n), plain, e, n
-    # 出力:
-    e_bin_list = list(map(int, list(bin(e)[2:])))
-    bin_expansion_list = make_bin_expansion_list(data, e_bin_list, n)
-    output = multiply(e_bin_list, bin_expansion_list, n)
+    bin_list = list(map(int, list(bin(e)[2:])))
+    bin_expansion_list = make_bin_expansion_list(data, bin_list, n)
+    output = multiply(bin_list, bin_expansion_list, n)
     return output
