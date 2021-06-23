@@ -1,11 +1,6 @@
-import sympy
-import numpy
-import random
-import math
 import utils
-
-
 # ASCIIコードの0x20から0x7Eの合計95文字を利用
+
 
 def main():
     print('動作モードを選択してください。\n(鍵生成:1, 暗号化:2, 複合化:3)')
@@ -16,7 +11,7 @@ def main():
         e = utils.e_input()
 
         n, e, lcm, d = utils.make_keys(key_len, e)
-        print(F'n: {n}\ne: {e}\nlcm: {lcm}\nd: {d}')
+        print(F'n: {n}\ne: {e}\nd: {d}')
 
     if mode == '2':
         print('n,eを入力してください')
@@ -36,16 +31,14 @@ def main():
 
     if mode == '3':
         char_crypt = input('複合化します。\ntext: ')
-        # crypt = input('複合化します。\ntext: ')
-        #  crypt = int(input('crypt: '))
         n = int(input('n: '))
         d = int(input('d: '))
         crypt = utils.char_to_int(char_crypt)
 
         int_plain = utils.bin_expansion(crypt, d, n)
-        plain = utils.int_to_char(int_plain)
         # 実はpowにmodと二進展開の機能があるとか知りたくなかった
         # plain = pow(crypt, d, n)
+        plain = utils.int_to_char(int_plain)
         print(F'plain: {plain}')
 
 
