@@ -5,6 +5,7 @@ import utils
 def main():
     print('まず鍵を作ります')
     n, e, d = mode1()
+    crypt = 0
     while True:
         try:
             print('\n動作モードを選択してください。\n(鍵生成:1, 暗号化:2, 複合化:3, 現在の値を確認:4, 終了:5)')
