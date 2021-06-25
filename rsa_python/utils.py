@@ -1,4 +1,61 @@
+import copy
+
 import sympy
+import random
+
+
+def make_prime(k_len):
+    tmp_num_s = random.randint(pow(2, k_len-1), pow(2, k_len))
+    tmp_num = copy.copy(tmp_num_s)
+    if tmp_num % 2 == 0:
+        tmp_num += 1
+    t = 0
+    tmp_num_key = [0] * 10
+    while not sympy.isprime(tmp_num):
+        if tmp_num < pow(2, k_len-1) or tmp_num > pow(2, k_len):
+            make_prime(k_len)
+
+        if tmp_num - tmp_num_s <= 100:
+            tmp_num_key = make_tmp_num_key(tmp_num, tmp_num_key)
+            tmp_num += 2
+        else:
+            tmp_num = add_tmp_num(tmp_num, tmp_num_key)
+
+        t += 1
+        print(F't:{t}\ntmp: {tmp_num - tmp_num_s}\n\n')
+    return tmp_num
+
+
+def add_tmp_num(tmp_num, tmp_num_key):
+    try:
+        if (tmp_num - tmp_num_key[0]) % 3 == 0:
+            make_raise()
+        elif (tmp_num - tmp_num_key[1]) % 5 == 0:
+            make_raise()
+        elif (tmp_num - tmp_num_key[2]) % 7 == 0:
+            make_raise()
+        elif (tmp_num - tmp_num_key[3]) % 11 == 0:
+            make_raise()
+        else:
+            return tmp_num
+    except Exception:
+        return add_tmp_num(tmp_num + 2, tmp_num_key)
+
+
+def make_raise():
+    raise Exception
+
+
+def make_tmp_num_key(tmp_num, tmp_num_key):
+    if tmp_num % 3 == 0:
+        tmp_num_key[0] = copy.copy(tmp_num)
+    elif tmp_num % 5 == 0:
+        tmp_num_key[1] = copy.copy(tmp_num)
+    elif tmp_num % 7 == 0:
+        tmp_num_key[2] = copy.copy(tmp_num)
+    elif tmp_num % 11 == 0:
+        tmp_num_key[3] = copy.copy(tmp_num)
+    return tmp_num_key
 
 
 def make_keys(key_len, e):  # return n, e, lcm, d

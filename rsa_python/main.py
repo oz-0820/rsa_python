@@ -5,6 +5,7 @@ import utils
 def main():
     print('まず鍵を作ります')
     n, e, d = mode1()
+    crypt = 0
     while True:
         try:
             print('\n動作モードを選択してください。\n(鍵生成:1, 暗号化:2, 複合化:3, 現在の値を確認:4, 終了:5)')
@@ -26,8 +27,9 @@ def main():
 
 
 def mode1():
-    key_len = int(input('鍵の長さ[bit]\n(2048`より大きいと生成がクソ重い)\n>> '))
+    key_len = int(input('4096bit以下を推奨。ただし、あまりにも小さいとエラーが出ます。\n鍵の長さ(bit): '))
     e = utils.e_input()
+
     n, e, lcm, d = utils.make_keys(key_len, e)
     print(F'n: {n}\ne: {e}\nd: {d}')
     return n, e, d
@@ -56,7 +58,7 @@ def mode2(n, e):
 
 
 def mode3(crypt, n, d):
-    char_crypt = input('複合化します。\n先ほど生成した鍵を利用する場合は"text: 0"と入力してください\ntext: ')
+    char_crypt = input('複合化します。\n先ほど生成した鍵・暗号を利用する場合は"text: 0"と入力してください\ntext: ')
     if char_crypt == '0':
         char_crypt = crypt
         print(F'crypt: {char_crypt}\nn: {n}\nd: {d}')
