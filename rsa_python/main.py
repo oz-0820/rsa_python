@@ -27,7 +27,7 @@ def main():
 
 
 def mode1():
-    key_len = int(input('鍵の長さ(bit): '))
+    key_len = int(input('4096bit以下を推奨。ただし、あまりにも小さいとエラーが出ます。\n鍵の長さ(bit): '))
     e = utils.e_input()
 
     n, e, lcm, d = utils.make_keys(key_len, e)
@@ -44,7 +44,7 @@ def mode2(n, e):
     else:
         print(F'n: {n}\ne: {e}')
 
-    char_plain = input(F'暗号化します。\nASCIIコードの0x20から0x7Eまでの入力に対応しています。(計95文字)\nつまりは半角英数と記号\ntext: ')
+    char_plain = input(F'暗号化します。\nASCIIコードの0x20から0x7Eまでの入力に対応しています。(計96文字)\nつまりは半角英数と記号\ntext: ')
     int_plain = utils.char_to_int(char_plain)
 
     int_crypt = utils.bin_expansion(int_plain, e, n)
@@ -57,7 +57,7 @@ def mode2(n, e):
 
 
 def mode3(crypt, n, d):
-    char_crypt = input('複合化します。\n先ほど生成した鍵を利用する場合は"text: 0"と入力してください\ntext: ')
+    char_crypt = input('複合化します。\n先ほど生成した鍵・暗号を利用する場合は"text: 0"と入力してください\ntext: ')
     if char_crypt == '0':
         char_crypt = crypt
         print(F'crypt: {char_crypt}\nn: {n}\nd: {d}')
