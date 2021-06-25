@@ -1,5 +1,5 @@
 import utils
-# ASCIIコードの0x20から0x7Eの合計95文字を利用
+# ASCIIコードの0x20から0x7Eの合計96文字を利用
 
 
 def main():
@@ -51,6 +51,7 @@ def mode2(n, e):
     # 実はpowにmodと二進展開の機能があるとか知りたくなかった
     # utils.bin_expansion() == pow()
     # int_crypt = pow(int_plain, e, n)
+
     char_crypt = utils.int_to_char(int_crypt)
     print(F'crypt: {char_crypt}')
     return char_crypt
