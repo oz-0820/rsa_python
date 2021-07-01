@@ -21,7 +21,7 @@ def make_keys(key_len: int, e: int) -> Union[int, int, int, int]:
 
 
 def e_input() -> int:
-    e = input('eの値を選択する\na: 3，\nb: 5,\nc: 17,\nd: 257,\ne: 65537,(推奨)\nf: 131073,\ng: 262145,\n>> ')
+    e = input('eの値を選択してください。(a~g)\na: 3，\nb: 5,\nc: 17,\nd: 257,\ne: 65537,(推奨)\nf: 131073,\ng: 262145,\n>> ')
     if e == 'a':
         return 3
     elif e == 'b':
@@ -49,26 +49,26 @@ def char_to_int(data: str) -> int:  # 文字列を突っ込むと数列を返す
     int_list.reverse()
     int_data = 0
     for i in range(len(int_list)):
-        int_data += int_list[i] * pow(94, i)
+        int_data += int_list[i] * pow(95, i)
     return int_data
 
 
 def int_to_char(data: int) -> str:  # 数列を突っ込むと文字列を返す
     i = 0
     while True:
-        if data < pow(94, i+1):
+        if data < pow(95, i+1):
             break
         i += 1
 
     int_list = []
     while i >= 0:
         int_text = 0
-        a = pow(94, i)
-        while int_text < 94:
+        a = pow(95, i)
+        while int_text < 95:  # 文字コードとしては0～94なので'<'でよろしい
             if (int_text + 1) * a > data:
                 int_list.append(int_text)
                 data -= int_text * a
-                int_text += 94
+                int_text += 95
             int_text += 1
         i -= 1
 

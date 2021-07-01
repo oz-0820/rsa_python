@@ -1,6 +1,6 @@
 import utils
 from typing import Union
-# ASCIIコードの0x20から0x7Eの合計94文字を利用
+# ASCIIコードの0x20から0x7Eの合計95文字を利用
 
 
 def main() -> None:
@@ -45,7 +45,7 @@ def mode2(n: int, e: int) -> str:
     else:
         print(F'n: {n}\ne: {e}')
 
-    char_plain = input(F'暗号化します。\nASCIIコードの0x20から0x7Eまでの入力に対応しています。(計94文字)\nつまりは半角英数と記号\ntext: ')
+    char_plain = input(F'暗号化します。\nASCIIコードの0x20から0x7Eまでの入力に対応しています。(計95文字)\nつまりは半角英数と記号\ntext: ')
     int_plain = utils.char_to_int(char_plain)
 
     int_crypt = utils.bin_expansion(int_plain, e, n)
