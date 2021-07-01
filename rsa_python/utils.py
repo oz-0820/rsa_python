@@ -1,7 +1,8 @@
 import sympy
+from typing import Union
 
 
-def make_keys(key_len, e):  # return n, e, lcm, d
+def make_keys(key_len: int, e: int) -> Union[int, int, int, int]:
     p1_len = (key_len // 2) + 1
     p2_len = key_len - p1_len
     prime1 = sympy.randprime(pow(2, p1_len-1), pow(2, p1_len)-1)
@@ -19,7 +20,7 @@ def make_keys(key_len, e):  # return n, e, lcm, d
     return n, e, lcm, d
 
 
-def e_input():
+def e_input() -> int:
     e = input('eの値を選択する\na: 3，\nb: 5,\nc: 17,\nd: 257,\ne: 65537,(推奨)\nf: 131073,\ng: 262145,\n>> ')
     if e == 'a':
         return 3
@@ -40,7 +41,7 @@ def e_input():
         return e_input()
 
 
-def char_to_int(data):  # 文字列を突っ込むと数列を返す
+def char_to_int(data: str) -> int:  # 文字列を突っ込むと数列を返す
     char_list = list(data)
     int_list = []
     for i in range(len(char_list)):
@@ -52,7 +53,7 @@ def char_to_int(data):  # 文字列を突っ込むと数列を返す
     return int_data
 
 
-def int_to_char(data):  # 数列を突っ込むと文字列を返す
+def int_to_char(data: int) -> str:  # 数列を突っ込むと文字列を返す
     i = 0
     while True:
         if data < pow(94, i+1):
@@ -78,7 +79,7 @@ def int_to_char(data):  # 数列を突っ込むと文字列を返す
     return char
 
 
-def make_bin_expansion_list(data, bin_list, mod):  # 二進展開の一覧表を作る
+def make_bin_expansion_list(data: int, bin_list: list, mod: int) -> list:  # 二進展開の一覧表を作る
     bin_expansion_list = [[0, data]]
     for i in range(1, len(bin_list)):
         data = i, pow(bin_expansion_list[i-1][1], 2) % mod
@@ -86,7 +87,7 @@ def make_bin_expansion_list(data, bin_list, mod):  # 二進展開の一覧表を
     return bin_expansion_list
 
 
-def multiply(bin_list, bin_expansion_list, mod):  # bin_listとbin_expansion_listから結果を計算する
+def multiply(bin_list: list, bin_expansion_list: list, mod: int) -> int:  # bin_listとbin_expansion_listから結果を計算する
     bin_list_re = list(reversed(bin_list))
     data = 1
     for i in range(len(bin_list_re)):
@@ -95,7 +96,7 @@ def multiply(bin_list, bin_expansion_list, mod):  # bin_listとbin_expansion_lis
     return data
 
 
-def bin_expansion(data, e, n):  # data ^ e (mod n)
+def bin_expansion(data: int, e: int, n: int) -> int:  # data ^ e (mod n)
     bin_list = list(map(int, list(bin(e)[2:])))
     bin_expansion_list = make_bin_expansion_list(data, bin_list, n)
     output = multiply(bin_list, bin_expansion_list, n)

@@ -1,8 +1,9 @@
 import utils
+from typing import Union
 # ASCIIコードの0x20から0x7Eの合計94文字を利用
 
 
-def main():
+def main() -> None:
     print('まず鍵を作ります')
     n, e, d = mode1()
     crypt = 0
@@ -26,7 +27,7 @@ def main():
             print('入力値が不正です')
 
 
-def mode1():
+def mode1() -> Union[int, int, int]:
     key_len = int(input('4096bit以下を推奨。ただし、あまりにも小さいとエラーが出ます。\n鍵の長さ(bit): '))
     e = utils.e_input()
 
@@ -35,7 +36,7 @@ def mode1():
     return n, e, d
 
 
-def mode2(n, e):
+def mode2(n: int, e: int) -> str:
     print('n,eを入力してください.\n先ほど生成した鍵を利用する場合は"n: 0"と入力してください')
     n_ = input('n: ')
     if n_ != '0':
@@ -57,7 +58,7 @@ def mode2(n, e):
     return char_crypt
 
 
-def mode3(crypt, n, d):
+def mode3(crypt: str, n: int, d: int) -> None:
     char_crypt = input('複合化します。\n先ほど生成した鍵・暗号を利用する場合は"text: 0"と入力してください\ntext: ')
     if char_crypt == '0':
         char_crypt = crypt
@@ -75,7 +76,7 @@ def mode3(crypt, n, d):
     print(F'plain: {char_plain}')
 
 
-def mode4(n, e, d, crypt):
+def mode4(n: int, e: int, d: int, crypt: str) -> None:
     print(F'n: {n}\ne: {e}\nd: {d}\ncrypt: {crypt}\n')
 
 
